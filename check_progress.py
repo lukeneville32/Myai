@@ -14,7 +14,7 @@ def quick_check():
     # Try to load existing data
     try:
         tracker.load_from_file("weekly_progress.json")
-    except:
+    except (FileNotFoundError, Exception):
         print("⚠️  No saved progress found. Please update your progress first.")
         print("Run: python progress_tracker.py")
         return
@@ -31,7 +31,7 @@ def interactive_update():
     try:
         tracker.load_from_file("weekly_progress.json")
         print("✅ Loaded existing progress data\n")
-    except:
+    except (FileNotFoundError, Exception):
         print("📝 Starting new weekly tracking\n")
     
     print("📊 UPDATE YOUR PROGRESS")
@@ -75,7 +75,7 @@ def interactive_update():
         intentional = input("  Did it feel intentional? (y/n): ").lower() == 'y'
         
         tracker.complete_self_check(energy, value, calm, intentional)
-    except:
+    except (EOFError, KeyboardInterrupt):
         print("⚠️  Skipping self-check")
     
     # Save and show report
